@@ -13,5 +13,5 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 PRODUCT_DEVICE := ares
 PRODUCT_NAME := twrp_$(PRODUCT_DEVICE)
 PRODUCT_BRAND := xiaomi
-PRODUCT_MODEL := Redmi K40,Poco F3 GT
+PRODUCT_MODEL := Redmi K40 Gaming,Poco F3 GT
 PRODUCT_MANUFACTURER := Xiaomi
