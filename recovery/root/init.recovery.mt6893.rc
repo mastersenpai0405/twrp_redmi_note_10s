@@ -1,2 +1,8 @@
+service vendor.boot-hal-1-1 /vendor/bin/hw/android.hardware.boot@1.1-service
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64/hw:/system/lib64
+    seclabel u:r:boot:s0
+    
 on boot
-    start boot-hal-1-1
+    start vendor.boot-hal-1-1
