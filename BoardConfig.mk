@@ -112,6 +112,7 @@ BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
 
 # Metadata
 BOARD_USES_METADATA_PARTITION := true
+BOARD_USE_METADATA_ENCRYPTION := true
 
 # Treble
 BOARD_VNDK_VERSION := current
