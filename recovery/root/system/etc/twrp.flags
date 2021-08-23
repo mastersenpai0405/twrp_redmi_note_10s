@@ -17,7 +17,7 @@
 /bootloader         emmc      /dev/block/by-name/lk                             
 /bootloader2        emmc      /dev/block/by-name/lk2                     
 /para               emmc      /dev/block/by-name/para 
-/boot               emmc      /dev/block/by-name/boot_a                                             flags=display="Boot";backup=1;flashimg=1;
+/boot               emmc      /dev/block/by-name/boot                                             flags=display="Boot";backup=1;flashimg=1;
 /logo               emmc      /dev/block/by-name/logo                                              
 /expdb              emmc      /dev/block/by-name/expdb                                       
 /seccfg             emmc      /dev/block/by-name/seccfg                                       
