@@ -1,30 +1,8 @@
 # For MTK DRM integration:
 
 import /microtrust.rc
-
-on post-fs-data && property:ro.boot.tee_type=1
-    mkdir /data/vendor/mitee
-    chmod 0755 /data/vendor/mitee
-    chown system system /data/vendor/mitee
-    mkdir /data/vendor/thh
-    chmod 0755 /data/vendor/thh
-    chown system system /data/vendor/thh
-    write /proc/bootprof "init miteelog"
-
-on fs && property:ro.boot.tee_type=1
-    write /proc/bootprof "init tee-supplicant"
-   # set SELinux security contexts on upgrade or policy update
-    restorecon_recursive /mnt/vendor/persist
-    chmod 0660 /dev/tee0
-    chmod 0660 /dev/teepriv0
-    chown root keystore /dev/tee0
-    chmod 0660 /dev/rpmb0
-    chown root root /dev/rpmb0
-    enable keymaster-4-0-mitee
-    start tee-supplicant
-    mkdir /mnt/vendor/persist/data 0755 root root
-    setprop vendor.teefs_state ready
-    setprop ro.hardware.gatekeeper mitee
+import /tee-suplicant.rc
+import /miteelog.rc
 
 on fs
     install_keyring
@@ -42,25 +20,7 @@ service keystore /system/bin/keystore /tmp/misc/keystore
     group root drmrpc readproc
     disabled
     seclabel u:r:recovery:s0
-
-service miteelog /vendor/bin/miteelog
-    user root
-    group root
-    disabled
-    seclabel u:r:recovery:s0
-    
-service tee-supplicant /vendor/bin/tee-supplicant
-    disabled
-    user root
-    group root
-    Seclabel u:r:recovery:s0
-
-service init_thh_service /vendor/bin/init_thh_isee startload
-    user root
-    group root
-    disabled
-    seclabel u:r:recovery:s0
-    
+      
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
@@ -90,8 +50,6 @@ on property:hwservicemanager.ready=true
 
 on property:ro.crypto.state=unsupported
     stop teei_daemon
-    stop miteelog
-    stop tee-supplicant
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
@@ -100,8 +58,6 @@ on property:ro.crypto.state=unsupported
 
 on property:ro.crypto.state=unencrypted
     stop teei_daemon
-    stop miteelog
-    stop tee-supplicant
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
@@ -110,8 +66,6 @@ on property:ro.crypto.state=unencrypted
 
 on property:twrp.decrypt.done=true
     stop teei_daemon
-    stop miteelog
-    stop tee-supplicant
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
