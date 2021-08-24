@@ -1,4 +1,30 @@
+# For MTK DRM integration:
+
 import /microtrust.rc
+
+on post-fs-data && property:ro.boot.tee_type=1
+    mkdir /data/vendor/mitee
+    chmod 0755 /data/vendor/mitee
+    chown system system /data/vendor/mitee
+    mkdir /data/vendor/thh
+    chmod 0755 /data/vendor/thh
+    chown system system /data/vendor/thh
+    write /proc/bootprof "init miteelog"
+
+on fs && property:ro.boot.tee_type=1
+    write /proc/bootprof "init tee-supplicant"
+   # set SELinux security contexts on upgrade or policy update
+    restorecon_recursive /mnt/vendor/persist
+    chmod 0660 /dev/tee0
+    chmod 0660 /dev/teepriv0
+    chown system keystore /dev/tee0
+    chmod 0660 /dev/rpmb0
+    chown system system /dev/rpmb0
+    enable vendor.keymaster-4-0-mitee
+    start tee-supplicant
+    mkdir /mnt/vendor/persist/data 0755 system system
+    setprop vendor.teefs_state ready
+    setprop ro.hardware.gatekeeper mitee
 
 on init
     mkdir /mnt/vendor/persist 0700 root root
@@ -7,7 +33,7 @@ on init
 on fs
     install_keyring
     setprop crypto.ready 1
-
+    
 service keystore_auth /system/bin/keystore_auth
     oneshot
     user system
@@ -21,6 +47,21 @@ service keystore /system/bin/keystore /tmp/misc/keystore
     disabled
     seclabel u:r:recovery:s0
 
+service miteelog /vendor/bin/miteelog
+    class core
+    disabled
+    seclabel u:r:recovery:s0
+    
+service tee-supplicant /vendor/bin/tee-supplicant
+    disabled
+    Seclabel u:r:recovery:s0
+
+service init_thh_service /vendor/bin/init_thh_isee startload
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+    
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
@@ -35,27 +76,42 @@ service keymaster-4-0-beanpod /vendor/bin/hw/android.hardware.keymaster@4.0-serv
     disabled
     seclabel u:r:recovery:s0
 
+service keymaster-4-0-mitee /vendor/bin/hw/android.hardware.keymaster@4.0-service.mitee
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64/hw:/system/lib64
+    disabled
+    seclabel u:r:recovery:s0
+
 on property:hwservicemanager.ready=true
-    start keymaster-4-0
+    start keymaster-4-0-beanpod
+    start keymaster-4-0-mitee
     start gatekeeper-1-0
+    start miteelog
 
 on property:ro.crypto.state=unsupported
     stop teei_daemon
+    stop miteelog
     stop keymaster-4-0-beanpod
+    stop keymaster-4-0-mitee
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
 
 on property:ro.crypto.state=unencrypted
     stop teei_daemon
+    stop miteelog
     stop keymaster-4-0-beanpod
+    stop keymaster-4-0-mitee
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
 
 on property:twrp.decrypt.done=true
     stop teei_daemon
+    stop miteelog
     stop keymaster-4-0-beanpod
+    stop keymaster-4-0-mitee
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
