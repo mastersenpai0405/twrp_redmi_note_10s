@@ -48,12 +48,15 @@ service keystore /system/bin/keystore /tmp/misc/keystore
     seclabel u:r:recovery:s0
 
 service miteelog /vendor/bin/miteelog
-    class core
+    user root
+    group root
     disabled
     seclabel u:r:recovery:s0
     
 service tee-supplicant /vendor/bin/tee-supplicant
     disabled
+    user root
+    group root
     Seclabel u:r:recovery:s0
 
 service init_thh_service /vendor/bin/init_thh_isee startload
@@ -91,7 +94,6 @@ on property:hwservicemanager.ready=true
 
 on property:ro.crypto.state=unsupported
     stop teei_daemon
-    stop miteelog
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
@@ -100,7 +102,6 @@ on property:ro.crypto.state=unsupported
 
 on property:ro.crypto.state=unencrypted
     stop teei_daemon
-    stop miteelog
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
@@ -109,7 +110,6 @@ on property:ro.crypto.state=unencrypted
 
 on property:twrp.decrypt.done=true
     stop teei_daemon
-    stop miteelog
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
