@@ -5,10 +5,10 @@ import /microtrust.rc
 on post-fs-data && property:ro.boot.tee_type=1
     mkdir /data/vendor/mitee
     chmod 0755 /data/vendor/mitee
-    chown root root /data/vendor/mitee
+    chown system system /data/vendor/mitee
     mkdir /data/vendor/thh
     chmod 0755 /data/vendor/thh
-    chown root root /data/vendor/thh
+    chown system system /data/vendor/thh
     write /proc/bootprof "init miteelog"
 
 on fs && property:ro.boot.tee_type=1
@@ -20,7 +20,7 @@ on fs && property:ro.boot.tee_type=1
     chown root keystore /dev/tee0
     chmod 0660 /dev/rpmb0
     chown root root /dev/rpmb0
-    enable vendor.keymaster-4-0-mitee
+    enable keymaster-4-0-mitee
     start tee-supplicant
     mkdir /mnt/vendor/persist/data 0755 root root
     setprop vendor.teefs_state ready
@@ -77,19 +77,21 @@ service keymaster-4-0-beanpod /vendor/bin/hw/android.hardware.keymaster@4.0-serv
 
 service keymaster-4-0-mitee /vendor/bin/hw/android.hardware.keymaster@4.0-service.mitee
     user root
-    group root
+    group root drmrpc
     setenv LD_LIBRARY_PATH /vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
 on property:hwservicemanager.ready=true
     start keymaster-4-0-beanpod
-    start keymaster-4-0-mitee
+    start vendor.keymaster-4-0-mitee
     start gatekeeper-1-0
     start miteelog
 
 on property:ro.crypto.state=unsupported
     stop teei_daemon
+    stop miteelog
+    stop tee-supplicant
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
@@ -98,6 +100,8 @@ on property:ro.crypto.state=unsupported
 
 on property:ro.crypto.state=unencrypted
     stop teei_daemon
+    stop miteelog
+    stop tee-supplicant
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
@@ -106,6 +110,8 @@ on property:ro.crypto.state=unencrypted
 
 on property:twrp.decrypt.done=true
     stop teei_daemon
+    stop miteelog
+    stop tee-supplicant
     stop keymaster-4-0-beanpod
     stop keymaster-4-0-mitee
     stop gatekeeper-1-0
