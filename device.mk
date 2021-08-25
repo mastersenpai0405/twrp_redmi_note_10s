@@ -23,8 +23,10 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_OPTIONAL_system=true
     
 # Boot control HAL
+PRODUCT_PACKAGES_DEBUG := \
+    bootctl
+
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.1-service \
     android.hardware.boot@1.0-impl-1.1-mtkimpl.so
 
 PRODUCT_PACKAGES += \
