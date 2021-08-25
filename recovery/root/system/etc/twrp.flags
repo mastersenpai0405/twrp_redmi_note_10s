@@ -4,7 +4,6 @@
 
 # Currently we dont have e2fsck compiled. So fs check would failed.
 # mount point       fstype    device                                                                flags
-/metadata           ext4      /dev/block/by-name/metadata                                           
 /cache              ext4      /dev/block/by-name/rescue                                             flags=display="Cache";
 /protect_f          ext4      /dev/block/by-name/protect1
 /protect_s          ext4      /dev/block/by-name/protect2                 
