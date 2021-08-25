@@ -10,11 +10,11 @@ on fs && property:ro.boot.tee_type=1
     restorecon_recursive /mnt/vendor/persist
     chmod 0660 /dev/tee0
     chmod 0660 /dev/teepriv0
-    chown system keystore /dev/tee0
+    chown root keystore /dev/tee0
     chmod 0660 /dev/rpmb0
-    chown system system /dev/rpmb0
+    chown root root /dev/rpmb0
     enable vendor.keymaster-4-0-mitee
     start tee-supplicant
-    mkdir /mnt/vendor/persist/data 0755 system system
+    mkdir /mnt/vendor/persist/data 0755 root root
     setprop vendor.teefs_state ready
     setprop ro.hardware.gatekeeper mitee
