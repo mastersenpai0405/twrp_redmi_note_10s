@@ -32,4 +32,4 @@
 /cust               ext4      /dev/block/platform/bootdevice/by-name/cust
 
 # removable
-/usb-otg          vfat     /dev/block/sdd1  /dev/block/sdd                     flags=display="usb-otg";storage;wipeingui;removable;fsflags="utf8"
+/usb-otg            vfat     /dev/block/sda1  /dev/block/sdd                     flags=storage;wipeingui;removable
