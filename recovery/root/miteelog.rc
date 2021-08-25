@@ -1,6 +1,6 @@
 service miteelog /vendor/bin/miteelog
-    class core
     disabled
+    seclabel u:r:recovery:s0
 
 on post-fs-data && property:ro.boot.tee_type=1
     mkdir /data/vendor/mitee

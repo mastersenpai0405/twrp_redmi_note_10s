@@ -13,6 +13,10 @@ PRODUCT_SHIPPING_API_LEVEL := 30
 # Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
+# Virtual A/B OTA
+$(call inherit-product, \
+    $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+
 # A/B
 ENABLE_VIRTUAL_AB := true
 
@@ -23,8 +27,8 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_OPTIONAL_system=true
     
 # Boot control HAL
-PRODUCT_PACKAGES_DEBUG := \
-    bootctl
+PRODUCT_PACKAGES := \
+    bootcrtl.mt6893
 
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl-1.1-mtkimpl.so
