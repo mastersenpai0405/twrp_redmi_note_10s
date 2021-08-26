@@ -23,7 +23,14 @@ service keystore /system/bin/keystore /tmp/misc/keystore
     group root drmrpc readproc
     disabled
     seclabel u:r:recovery:s0
-      
+
+service unified-script /system/bin/unified-script.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
@@ -83,4 +90,6 @@ service vendor.boot-hal-1-1 /vendor/bin/hw/android.hardware.boot@1.1-service
     
 on boot
     start vendor.boot-hal-1-1
+    chmod 0777 /vendor/bin/variant-script.sh
+    start unified-script
     
