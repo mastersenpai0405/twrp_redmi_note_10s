@@ -1,5 +1,5 @@
  # For MTK DRM integration:
-service tee-supplicant /system/bin/tee-supplicant
+service tee-supplicant /vendor/bin/tee-supplicant
     class core
     disabled
     # seclabel u:r:recovery:s0
