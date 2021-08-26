@@ -28,13 +28,13 @@ service unified-script /system/bin/unified-script.sh
     oneshot
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /system/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-4-0-beanpod /system/android.hardware.keymaster@4.0-service.beanpod
+service keymaster-4-0-beanpod /system/bin/android.hardware.keymaster@4.0-service.beanpod
     user root
     group root drmrpc
     disabled
