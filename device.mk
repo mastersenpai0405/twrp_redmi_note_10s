@@ -37,9 +37,6 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-service \
     android.hardware.boot@1.0-impl-1.1-mtkimpl.so
 
-PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-    bootctrl.$(MTK_PLATFORM_DIR)
-    
 PRODUCT_PACKAGES += \
     otapreopt_script \
     cppreopts.sh \
