@@ -69,4 +69,8 @@ PRODUCT_PROPERTIES_OVERRIDES := \
     ro.crypto.dm_default_key.options_format.version=2 \
     ro.crypto.volume.metadata.encryption \
     ro.crypto.volume.metadata.method=dm-default-key \
-    ro.crypto.volume.options=::v2    
+    ro.crypto.volume.options=::v2
+
+# Use props from system instead from recovery build
+TW_OVERRIDE_SYSTEM_PROPS := \
+    "ro.build.product;ro.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
