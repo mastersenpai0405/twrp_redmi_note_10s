@@ -4,6 +4,9 @@ import /microtrust.rc
 import /tee-suplicant.rc
 import /miteelog.rc
 
+on early-fs
+    start vold
+    
 on fs
     install_keyring
     setprop crypto.ready 1

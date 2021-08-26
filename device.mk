@@ -61,3 +61,12 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/ashmemd_aidl_interface-cpp.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so
+
+# Product Properties
+PRODUCT_PROPERTIES_OVERRIDES := \
+    ro.crypto.volume.options=adiantum \
+    ro.crypto.volume.metadata.encryption=adiantum \
+    ro.crypto.dm_default_key.options_format.version=2 \
+    ro.crypto.volume.metadata.encryption \
+    ro.crypto.volume.metadata.method=dm-default-key \
+    ro.crypto.volume.options=::v2    
