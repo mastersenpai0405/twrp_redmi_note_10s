@@ -27,12 +27,19 @@ AB_OTA_POSTINSTALL_CONFIG += \
     POSTINSTALL_OPTIONAL_system=true
     
 # Boot control HAL
-PRODUCT_PACKAGES := \
-    bootcrtl.mt6893
+PRODUCT_PACKAGES_DEBUG += \
+    update_engine_client \
+    bootctl
 
 PRODUCT_PACKAGES += \
+    bootctrl.$(MTK_PLATFORM_DIR) \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-service \
     android.hardware.boot@1.0-impl-1.1-mtkimpl.so
 
+PRODUCT_STATIC_BOOT_CONTROL_HAL := \
+    bootctrl.$(MTK_PLATFORM_DIR)
+    
 PRODUCT_PACKAGES += \
     otapreopt_script \
     cppreopts.sh \
