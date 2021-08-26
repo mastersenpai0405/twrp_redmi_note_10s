@@ -1,4 +1,4 @@
-service miteelog /vendor/bin/miteelog
+service miteelog /system/bin/miteelog
     class core
     disabled
     # seclabel u:r:recovery:s0
