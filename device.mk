@@ -33,9 +33,7 @@ PRODUCT_PACKAGES_DEBUG += \
 
 PRODUCT_PACKAGES += \
     bootctrl.$(MTK_PLATFORM_DIR) \
-    android.hardware.boot@1.0-impl \
-    android.hardware.boot@1.0-service \
-    android.hardware.boot@1.0-impl-1.1-mtkimpl.so
+    android.hardware.boot@1.0-impl
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
@@ -65,15 +63,6 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/ashmemd_aidl_interface-cpp.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so
-
-# Product Properties
-PRODUCT_PROPERTIES_OVERRIDES := \
-    ro.crypto.volume.options=adiantum \
-    ro.crypto.volume.metadata.encryption=adiantum \
-    ro.crypto.dm_default_key.options_format.version=2 \
-    ro.crypto.volume.metadata.encryption \
-    ro.crypto.volume.metadata.method=dm-default-key \
-    ro.crypto.volume.options=::v2
 
 # Use props from system instead from recovery build
 TW_OVERRIDE_SYSTEM_PROPS := \

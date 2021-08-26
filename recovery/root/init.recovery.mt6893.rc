@@ -3,9 +3,6 @@
 import /microtrust.rc
 import /tee-suplicant.rc
 import /miteelog.rc
-
-on early-fs
-    start vold
     
 on fs
     install_keyring
@@ -31,32 +28,27 @@ service unified-script /system/bin/unified-script.sh
     oneshot
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /system/android.hardware.gatekeeper@1.0-service
     user root
     group root
-    setenv LD_LIBRARY_PATH /vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-4-0-beanpod /vendor/bin/hw/android.hardware.keymaster@4.0-service.beanpod
+service keymaster-4-0-beanpod /system/android.hardware.keymaster@4.0-service.beanpod
     user root
     group root drmrpc
-    setenv LD_LIBRARY_PATH /vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
-service vendor.keymaster-4-0-mitee /vendor/bin/hw/android.hardware.keymaster@4.0-service.mitee
+service vendor.keymaster-4-0-mitee /system/bin/android.hardware.keymaster@4.0-service.mitee
     user root
     group root drmrpc
-    setenv LD_LIBRARY_PATH /vendor/lib64/hw:/system/lib64
     disabled
     seclabel u:r:recovery:s0
 
 on property:hwservicemanager.ready=true && property:ro.boot.tee_type=1
-    start vendor.keymaster-4-0-mitee
-
-on property:hwservicemanager.ready=true && property:ro.boot.tee_type=2
     start keymaster-4-0-beanpod
+    start vendor.keymaster-4-0-mitee
     
 on property:hwservicemanager.ready=true
     start gatekeeper-1-0
@@ -85,15 +77,9 @@ on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
-
-service vendor.boot-hal-1-1 /vendor/bin/hw/android.hardware.boot@1.1-service
-    user root
-    group root
-    setenv LD_LIBRARY_PATH /vendor/lib64/hw:/system/lib64
-    seclabel u:r:recovery:s0
     
 on boot
-    start vendor.boot-hal-1-1
-    chmod 0777 /vendor/bin/variant-script.sh
+    start boot-hal-1-1
+    chmod 0777 /system/bin/variant-script.sh
     start unified-script
     
