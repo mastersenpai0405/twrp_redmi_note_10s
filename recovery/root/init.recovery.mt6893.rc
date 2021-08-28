@@ -90,6 +90,7 @@ on property:ro.crypto.state=unsupported
 on property:ro.crypto.state=unencrypted
     stop teei_daemon
     stop miteelog
+    stop tee-suplicant
     stop vendorkeymaster-4-0-beanpod
     stop vendor.keymaster-4-0-mitee
     stop vendor.gatekeeper-1-0
@@ -99,6 +100,7 @@ on property:ro.crypto.state=unencrypted
 on property:twrp.decrypt.done=true
     stop teei_daemon
     stop miteelog
+    stop tee-suplicant
     stop vendor.keymaster-4-0-beanpod
     stop vendor.keymaster-4-0-mitee
     stop vendor.gatekeeper-1-0
