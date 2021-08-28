@@ -15,6 +15,7 @@ on fs && property:ro.boot.tee_type=1
     chmod 0660 /dev/rpmb0
     chown root root /dev/rpmb0
     enable vendor.keymaster-4-0-mitee
+    start tee-suplicant
     mkdir /mnt/vendor/persist/data 0755 root root
     setprop vendor.teefs_state ready
     setprop ro.hardware.gatekeeper mitee

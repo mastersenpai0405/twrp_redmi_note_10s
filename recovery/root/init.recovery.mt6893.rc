@@ -68,9 +68,8 @@ service vendor.keymaster-4-0-mitee /vendor/bin/hw/android.hardware.keymaster@4.0
     seclabel u:r:recovery:s0
 
 on property:hwservicemanager && property:ro.boot.tee_type=1
-    start vendor.keymaster-4-0-mitee
-    start miteelog
-    start tee-suplicant
+     start vendor.keymaster-4-0-mitee
+#     start miteelog
     
 on property:hwservicemanager && property:ro.boot.tee_type=2
     start vendor.keymaster-4-0-beanpod

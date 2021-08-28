@@ -1,7 +1,7 @@
 service miteelog /vendod/bin/miteelog
     class core
     disabled
-    seclabel u:r:recovery:s0
+#    seclabel u:r:recovery:s0
 
 on post-fs-data && property:ro.boot.tee_type=1
     mkdir /data/vendor/mitee
@@ -11,3 +11,4 @@ on post-fs-data && property:ro.boot.tee_type=1
     chmod 0755 /data/vendor/thh
     chown root root /data/vendor/thh
     write /proc/bootprof "init miteelog"
+    start miteelog
