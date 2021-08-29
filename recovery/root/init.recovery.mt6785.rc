@@ -93,6 +93,3 @@ on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
-
-on boot
-    boot-hal-1-1
