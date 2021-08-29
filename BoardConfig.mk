@@ -31,8 +31,6 @@ TW_INCLUDE_REPACKTOOLS := true
 AB_OTA_PARTITIONS += \
     boot \
     dtbo \
-    lk \
-    preloader \
     product \
     system \
     vbmeta \
