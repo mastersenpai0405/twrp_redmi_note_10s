@@ -1,5 +1,5 @@
 # Path
-LOCAL_PATH := device/xiaomi/ares
+LOCAL_PATH := device/xiaomi/rosemary
 
 # Dynamic Partitions
 BOARD_USE_DYNAMIC_PARTITIONS := true

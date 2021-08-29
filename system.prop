@@ -7,4 +7,4 @@ ro.treble.enabled=true
 ro.mtk_tee_gp_support=1
 ro.mtk_microtrust_tee_support=1
 ro.mtk_soter_support=1
-ro.mediatek.platform=mt6893
+ro.mediatek.platform=mt6785

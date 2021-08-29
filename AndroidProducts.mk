@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-     $(LOCAL_DIR)/twrp_ares.mk
+     $(LOCAL_DIR)/twrp_rosemary.mk
