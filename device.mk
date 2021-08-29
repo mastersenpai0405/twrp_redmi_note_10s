@@ -26,13 +26,8 @@ AB_OTA_POSTINSTALL_CONFIG += \
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
     
-# Boot control HAL
-PRODUCT_PACKAGES_DEBUG += \
-    update_engine_client \
-    bootctl
-
 PRODUCT_PACKAGES += \
-    bootctrl.$(MTK_PLATFORM_DIR) \
+    android.hardware.boot@1.0-service \
     android.hardware.boot@1.0-impl
 
 PRODUCT_PACKAGES += \
